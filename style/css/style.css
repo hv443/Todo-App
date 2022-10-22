@@ -76,7 +76,7 @@ body {
 .todos__form-input {
   background-color: var(--bg);
   width: 100%;
-  padding: 1.2em 3em;
+  padding: 1.2em 3.6em;
   border: none;
   border-radius: 0.2em;
   font-weight: 600;
@@ -109,9 +109,13 @@ body {
   width: 120%;
   border-radius: 50%;
   border: 1px solid var(--off);
+  pointer-events: none;
 }
 .item__check input {
   visibility: hidden;
+}
+.item__content {
+  cursor: pointer;
 }
 .item__delete {
   margin-left: auto;
