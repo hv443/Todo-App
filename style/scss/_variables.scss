@@ -1,0 +1,30 @@
+:root {
+  // ### Primary
+  --active: hsl(220, 98%, 61%);
+  --checked: linear-gradient(hsl(192, 100%, 67%) to hsl(280, 87%, 65%));
+  --light: hsl(0, 0%, 98%);
+
+  --secondary: hsl(236, 33%, 92%);
+  --off: hsl(233, 11%, 84%);
+  --neutral: hsl(236, 9%, 61%);
+  --primary: hsl(235, 19%, 35%);
+  --bg: hsl(0, 0%, 98%);
+}
+
+.dark {
+  --secondary: hsl(235, 21%, 11%);
+  --bg: hsl(235, 24%, 19%);
+  --primary: hsl(234, 39%, 85%);
+  --neutral: hsl(234, 11%, 52%);
+  --off: hsl(233, 14%, 35%);
+}
+
+// ### Dark Theme
+
+// --secondary: hsl(235, 21%, 11%);
+// --bg: hsl(235, 24%, 19%);
+// --primary: hsl(234, 39%, 85%);
+// --neutral: hsl(234, 11%, 52%);
+// --off: hsl(233, 14%, 35%);
+// --light: hsl(236, 33%, 92%);
+// --secondary: hsl(237, 14%, 26%);

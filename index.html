@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png" />
+    <link rel="stylesheet" href="./style/css/style.css" />
+
+    <title>Todo app</title>
+  </head>
+  <body>
+    <div class="content-wrapper">
+      <header class="header">
+        <div class="header__logo">
+          <h1>TODO</h1>
+        </div>
+
+        <div class="header__theme-switch">
+          <img class="theme-switch" alt="" />
+        </div>
+      </header>
+
+      <div class="todos">
+        <form class="todos__form">
+          <input
+            class="todos__form-input"
+            type="text"
+            placeholder="Create a new todo..." />
+        </form>
+
+        <div class="todos__list">
+          <div class="todos__list-item item">
+            <div class="item__check">
+              <input type="checkbox" class="check" />
+            </div>
+            <div class="item__content">
+              <p>complte the fokyng app</p>
+            </div>
+            <div class="item__delete">
+              <img src="./images/icon-cross.svg" alt="cancel img" />
+            </div>
+          </div>
+
+          <div class="todos__list-item item">
+            <div class="item__check">
+              <input type="checkbox" class="check" />
+            </div>
+            <div class="item__content">
+              <p>complte the fokyng app</p>
+            </div>
+            <div class="item__delete">
+              <img src="./images/icon-cross.svg" alt="cancel img" />
+            </div>
+          </div>
+          <div class="todos__list-item item">
+            <div class="item__check">
+              <input type="checkbox" class="check" />
+            </div>
+            <div class="item__content">
+              <p>complte the fokyng app</p>
+            </div>
+            <div class="item__delete">
+              <img src="./images/icon-cross.svg" alt="cancel img" />
+            </div>
+          </div>
+        </div>
+
+        <div class="manage-todos">
+          <div class="manage-todos__remain">
+            <p class="remain">5 Items Left</p>
+          </div>
+
+          <ul class="manage-todos__filter-desktop">
+            <li class="all-todos"><button>All</button></li>
+            <li class="active-todos"><button>Active</button></li>
+            <li class="completed-todos"><button>Completed</button></li>
+          </ul>
+
+          <button class="manage-todos__clear">
+            <p class="clear">Clear Comleted</p>
+          </button>
+        </div>
+
+        <ul class="todos__filter-mobile">
+          <li class="all-todos"><button>All</button></li>
+          <li class="active-todos"><button>Active</button></li>
+          <li class="completed-todos"><button>Completed</button></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+  <script src="main.js"></script>
+</html>

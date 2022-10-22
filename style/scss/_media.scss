@@ -1,0 +1,26 @@
+@media (min-width: 678px) {
+  body {
+    background-image: url("../../images/bg-desktop-light.jpg");
+  }
+
+  .manage-todos {
+    &__filter-desktop {
+      display: flex;
+      gap: 1em;
+
+      font-weight: 700;
+      background-color: var(--bg);
+
+      *:hover {
+        color: var(--primary);
+      }
+      *:active {
+        color: var(--active);
+      }
+    }
+  }
+
+  .todos__filter-mobile {
+    display: none;
+  }
+}
