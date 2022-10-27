@@ -108,8 +108,8 @@ function remainingTodos() {
 function deleteSelectedTodo(index) {
   newTodos.splice(index, 1);
 
-  localStorage.setItem("savedTodos", JSON.stringify(newTodos));
-
+  const o = localStorage.setItem("savedTodos", JSON.stringify(newTodos));
+  console.log(o);
   newTodoList();
   remainingTodos();
 }
@@ -176,12 +176,10 @@ function completedTodos(e) {
   const id = Number(checkBox.id);
 
   newTodos.forEach((todo) => {
-    console.log(id + 1, todo.id);
-
     if (id == todo.id) {
-      return (todo.completed = !todo.completed);
+      todo.completed ? (checkBox.checked = true) : (checkBox.checked = false);
+      todo.completed = !todo.completed;
     }
-    todo.completed ? checkBox.checked : !checkBox.checked;
   });
 
   localStorage.setItem("savedTodos", JSON.stringify(newTodos));
