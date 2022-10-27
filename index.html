@@ -37,10 +37,13 @@
         <div class="todos__list">
           <div class="todos__list-item item">
             <div class="item__check">
-              <input type="checkbox" id="1" class="check" />
+              <input type="checkbox" id="${index}" class="checkbox" />
+              <div class="check">
+                <img src="./images/icon-check.svg" alt="check svg" />
+              </div>
             </div>
-            <label for="1" class="item__content">
-              <p>complte the fokyng app</p>
+            <label for="${index}" class="item__content">
+              <p>${todo.task}</p>
             </label>
             <div class="item__delete">
               <img
@@ -53,24 +56,24 @@
 
         <div class="manage-todos">
           <div class="manage-todos__remain">
-            <p class="remain">5 Items Left</p>
+            <p class="remain"></p>
           </div>
 
           <ul class="manage-todos__filter-desktop">
-            <li class="all-todos"><button>All</button></li>
-            <li class="active-todos"><button>Active</button></li>
-            <li class="completed-todos"><button>Completed</button></li>
+            <li class="all-todos filter"><button>All</button></li>
+            <li class="active-todos filter"><button>Active</button></li>
+            <li class="completed-todos filter"><button>Completed</button></li>
           </ul>
 
           <button class="manage-todos__clear">
-            <p class="clear">Clear Comleted</p>
+            <p class="clear">Clear Completed</p>
           </button>
         </div>
 
         <ul class="todos__filter-mobile">
-          <li class="all-todos"><button>All</button></li>
-          <li class="active-todos"><button>Active</button></li>
-          <li class="completed-todos"><button>Completed</button></li>
+          <li class="all-todos filter"><button>All</button></li>
+          <li class="active-todos filter"><button>Active</button></li>
+          <li class="completed-todos filter"><button>Completed</button></li>
         </ul>
       </div>
     </div>
