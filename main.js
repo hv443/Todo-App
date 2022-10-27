@@ -58,6 +58,8 @@ form.addEventListener("submit", (e) => {
 function newTodoList() {
   let htmlElement = "";
 
+  newTodos = JSON.parse(localStorage.getItem("savedTodos")) || [];
+
   newTodos.forEach((todo, index) => {
     htmlElement += ` 
   <li class="todos__list-item item">
@@ -179,7 +181,7 @@ function completedTodos(e) {
     if (id == todo.id) {
       return (todo.completed = !todo.completed);
     }
-    todo.completed ? checkBox.checkBox : !checkBox.checkBox;
+    todo.completed ? checkBox.checked : !checkBox.checked;
   });
 
   localStorage.setItem("savedTodos", JSON.stringify(newTodos));
