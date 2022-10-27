@@ -103,6 +103,7 @@ body {
 .item {
   padding: 1.2em;
   border-bottom: 1px solid var(--off);
+  cursor: pointer;
 
   &__check {
     margin-right: 1.2em;
@@ -111,22 +112,6 @@ body {
     border: 1px solid var(--off);
     padding: 0.3em;
     aspect-ratio: 1/1;
-
-    input {
-      cursor: pointer;
-      opacity: 0;
-
-      &:checked + .check {
-        background: linear-gradient(
-          to bottom,
-          var(--gradient1),
-          var(--gradient2)
-        );
-        img {
-          opacity: 1;
-        }
-      }
-    }
 
     &:hover {
       background: linear-gradient(
@@ -139,7 +124,6 @@ body {
 
     .check {
       position: absolute;
-      pointer-events: none;
       width: 100%;
       height: 100%;
       top: 0;
@@ -157,8 +141,8 @@ body {
   }
 
   &__content {
-    cursor: pointer;
     flex-grow: 1;
+    cursor: pointer;
   }
 
   &__delete {
@@ -211,5 +195,21 @@ body {
   }
   *:active {
     color: var(--active);
+  }
+}
+
+.completedTodo {
+  text-decoration: line-through;
+  color: var(--off);
+}
+
+.checkbox {
+  opacity: 0;
+
+  &:checked + .check {
+    background: linear-gradient(to bottom, var(--gradient1), var(--gradient2));
+    img {
+      opacity: 1;
+    }
   }
 }

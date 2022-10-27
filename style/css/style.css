@@ -95,6 +95,7 @@ body {
 .item {
   padding: 1.2em;
   border-bottom: 1px solid var(--off);
+  cursor: pointer;
 }
 .item__check {
   margin-right: 1.2em;
@@ -104,23 +105,12 @@ body {
   padding: 0.3em;
   aspect-ratio: 1/1;
 }
-.item__check input {
-  cursor: pointer;
-  opacity: 0;
-}
-.item__check input:checked + .check {
-  background: linear-gradient(to bottom, var(--gradient1), var(--gradient2));
-}
-.item__check input:checked + .check img {
-  opacity: 1;
-}
 .item__check:hover {
   background: linear-gradient(to bottom, var(--gradient1), var(--gradient2));
   border: 1px solid transparent;
 }
 .item__check .check {
   position: absolute;
-  pointer-events: none;
   width: 100%;
   height: 100%;
   top: 0;
@@ -134,8 +124,8 @@ body {
   opacity: 0;
 }
 .item__content {
-  cursor: pointer;
   flex-grow: 1;
+  cursor: pointer;
 }
 .item__delete {
   margin-left: auto;
@@ -181,6 +171,21 @@ body {
 }
 .todos__filter-mobile *:active {
   color: var(--active);
+}
+
+.completedTodo {
+  text-decoration: line-through;
+  color: var(--off);
+}
+
+.checkbox {
+  opacity: 0;
+}
+.checkbox:checked + .check {
+  background: linear-gradient(to bottom, var(--gradient1), var(--gradient2));
+}
+.checkbox:checked + .check img {
+  opacity: 1;
 }
 
 :root {

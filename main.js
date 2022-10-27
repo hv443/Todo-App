@@ -26,13 +26,11 @@ themeSwitch.addEventListener("click", (e) => {
 
 const form = document.querySelector(".todos__form");
 const todoList = document.querySelector(".todos__list");
-const todoListItem = document.querySelectorAll(".todos__list-item");
 
 let newTodos = [];
-let filteredTodos = [];
 
 const savedTodos = JSON.parse(localStorage.getItem("savedTodos"));
-savedTodos ? (newTodos = savedTodos) : newTodos;
+savedTodos.length > 0 ? (newTodos = savedTodos) : newTodos;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -41,15 +39,15 @@ form.addEventListener("submit", (e) => {
   if (!inputValue.trim()) {
     console.log("enter something");
   } else {
-    newTodos.unshift({
+    newTodos.push({
       id: newTodos.length + 1,
       task: inputValue,
       completed: false,
     });
-    localStorage.setItem("savedTodos", JSON.stringify(newTodos));
   }
 
-  e.target[0].value = "";
+  localStorage.setItem("savedTodos", JSON.stringify(newTodos));
+  form.reset();
 
   newTodoList();
   remainingTodos();
@@ -61,25 +59,27 @@ function newTodoList() {
   let htmlElement = "";
 
   newTodos.forEach((todo, index) => {
-    htmlElement += `<div class="todos__list-item item" onclick="completedTodos()">
-    <div class="item__check">
-
-    <input type="checkbox" id="${index}" class="checkbox" />
-      <div  class="check">
-        <img src="./images/icon-check.svg" alt="check svg" />
+    htmlElement += ` 
+  <li class="todos__list-item item">
+      <div class="item__check">
+        <input type="checkbox" id="${todo.id}" class=${
+      todo.completed && "checkbox"
+    } />
+        <div class="check">
+          <img src="./images/icon-check.svg" alt="check svg" />
+        </div>
       </div>
-    </div>
-    <label for="${index}" class="item__content">
-      <p>${todo.task}</p>
-    </label>
-    <div class="item__delete">
-      <img 
-      onclick="deleteSelectedTodo(${index})"
-        class="delete-todo"
-        src="./images/icon-cross.svg"
-        alt="cancel img" />
-    </div>
-  </div>`;
+      <span  class="item__content ${todo.completed && "completedTodo"}">
+        ${todo.task}
+      </span>
+      <div class="item__delete">
+        <img
+          onclick="deleteSelectedTodo(${index})"
+          class="delete-todo"
+          src="./images/icon-cross.svg"
+          alt="cancel img" />
+      </div>
+  </li>`;
 
     todoList.innerHTML = htmlElement;
   });
@@ -92,14 +92,16 @@ function newTodoList() {
 function remainingTodos() {
   const remainingTodos = document.querySelector(".remain");
 
-  remainingTodos.innerText = `${newTodos.length} ${
-    newTodos.length === 1 ? "item" : "items"
+  const todosLeft = newTodos.filter((todo) => {
+    return todo.completed == false;
+  });
+
+  remainingTodos.innerText = `${todosLeft.length} ${
+    todosLeft.length === 1 ? "item" : "items"
   } Left`;
 }
 
 // ! deleting single todo
-
-const deleteTodoBtn = document.querySelectorAll(".delete-todo");
 
 function deleteSelectedTodo(index) {
   newTodos.splice(index, 1);
@@ -119,8 +121,9 @@ filterBtn.forEach((btn) => {
 });
 
 function filterTodos(e) {
-  const oldTodos = JSON.parse(localStorage.getItem("savedTodos"));
-  filteredTodos = oldTodos.filter((todo) => {
+  const storedTodos = JSON.parse(localStorage.getItem("savedTodos"));
+
+  const filteredTodos = storedTodos.filter((todo) => {
     switch (e.target.innerText) {
       case "All":
         return todo;
@@ -132,7 +135,7 @@ function filterTodos(e) {
         return todo.completed == true;
 
       default:
-        todo;
+        return todo;
     }
   });
 
@@ -141,28 +144,47 @@ function filterTodos(e) {
   remainingTodos();
 }
 
-// ! selecting completed todos
-
-function completedTodos() {
-  const checkedTodo = document.querySelectorAll(".checkbox");
-  console.log(checkedTodo);
-  console.log("ola");
-}
-
 // ! clear all todos
 
 const clearCompletedTodosBtn = document.querySelector(".clear");
 clearCompletedTodosBtn.addEventListener("click", clearCompletedTodos);
 
 function clearCompletedTodos() {
-  const notCompletedTodos = newTodos.filter((todo) => {
-    return todo.completed;
+  const storedTodos = JSON.parse(localStorage.getItem("savedTodos"));
+
+  newTodos = storedTodos.filter((todo) => {
+    return todo.completed == false;
   });
 
-  newTodos = notCompletedTodos;
+  localStorage.setItem("savedTodos", JSON.stringify(newTodos));
 
   newTodoList();
   remainingTodos();
+}
+
+// ! selecting completed todos
+
+todoList.addEventListener("click", completedTodos);
+
+function completedTodos(e) {
+  e.stopPropagation();
+
+  const listItem = e.target.closest("li");
+  const checkBox = listItem.firstElementChild.childNodes[1];
+  const id = Number(checkBox.id);
+
+  newTodos.forEach((todo) => {
+    console.log(id + 1, todo.id);
+
+    if (id == todo.id) {
+      return (todo.completed = !todo.completed);
+    }
+    todo.completed ? checkBox.checkBox : !checkBox.checkBox;
+  });
+
+  localStorage.setItem("savedTodos", JSON.stringify(newTodos));
+  remainingTodos();
+  newTodoList();
 }
 
 newTodoList();
