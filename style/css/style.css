@@ -131,9 +131,6 @@ body {
   margin-left: auto;
   cursor: pointer;
 }
-.item__delete img {
-  width: 80%;
-}
 
 .manage-todos {
   background-color: var(--bg);

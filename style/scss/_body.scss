@@ -54,6 +54,7 @@ body {
 
   &__theme-switch {
     cursor: pointer;
+
     .theme-switch {
       width: 1.4em;
     }
@@ -114,11 +115,9 @@ body {
     aspect-ratio: 1/1;
 
     &:hover {
-      background: linear-gradient(
-        to bottom,
-        var(--gradient1),
-        var(--gradient2)
-      );
+      background: linear-gradient(to bottom,
+          var(--gradient1),
+          var(--gradient2));
       border: 1px solid transparent;
     }
 
@@ -148,9 +147,6 @@ body {
   &__delete {
     margin-left: auto;
     cursor: pointer;
-    img {
-      width: 80%;
-    }
   }
 }
 
@@ -171,6 +167,7 @@ body {
     &:hover {
       color: var(--primary);
     }
+
     &:active {
       color: var(--active);
     }
@@ -193,6 +190,7 @@ body {
   *:hover {
     color: var(--primary);
   }
+
   *:active {
     color: var(--active);
   }
@@ -206,14 +204,15 @@ body {
 .checkbox {
   opacity: 0;
 
-  &:checked + .check {
+  &:checked+.check {
     background: linear-gradient(to bottom, var(--gradient1), var(--gradient2));
+
     img {
       opacity: 1;
     }
   }
 }
 
-.active{
+.active {
   color: var(--active);
 }

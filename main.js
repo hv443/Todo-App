@@ -29,26 +29,27 @@ let filteredTodos = [];
 
 const form = document.querySelector(".todos__form");
 const todoList = document.querySelector(".todos__list");
+const filterBtn = document.querySelectorAll(".filter");
 
 
 newTodos = JSON.parse(localStorage.getItem("allTodos")) || [];
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const inputValue = e.target[0].value;
+
+  const inputValue = document.querySelector('.todos__form-input').value
 
   if (!inputValue.trim()) {
     console.log("enter something");
   } else {
     newTodos.push({
-      id: newTodos.length + 1,
+      id: newTodos.length,
       task: inputValue,
       completed: false,
     });
   }
 
   localStorage.setItem("allTodos", JSON.stringify(newTodos));
-
   newTodoList();
   remainingTodos();
   form.reset();
@@ -56,15 +57,26 @@ form.addEventListener("submit", (e) => {
 
 // ! rendering new todos list
 
-function newTodoList() {
-  let htmlElement = "";
+function newTodoList(emptyTodos = "No Active Todos") {
 
-  newTodos.forEach((todo, index) => {
-    htmlElement += ` 
+  let htmlElement = '';
+
+  newTodos.length == 0 ? htmlElement =
+    `<div class="todos__list-item item">
+ 
+      <span  class="item__content">
+       ${emptyTodos}
+      </span>
+    </div>`
+
+    :
+
+    newTodos.forEach((todo, index) => {
+      htmlElement += ` 
     <li class="todos__list-item item">
       <div class="item__check">
-        <input type="checkbox" id="${todo.id}" ${todo.completed && "checked"
-      } class=${todo.completed ? "checkbox" : ""} />
+        <input type="checkbox" id="${index}" ${todo.completed && "checked"
+        } class=${todo.completed ? "checkbox" : ""} />
         <div class="check">
           <img src="./images/icon-check.svg" alt="check svg" />
         </div>
@@ -80,7 +92,8 @@ function newTodoList() {
           alt="cancel img" />
       </div>
     </li>`;
-  });
+    })
+
   todoList.innerHTML = htmlElement;
 }
 
@@ -89,7 +102,7 @@ function newTodoList() {
 // ! checking how many todos left
 
 function remainingTodos() {
-  const allTodos = JSON.parse(localStorage.getItem("allTodos"));
+  const allTodos = JSON.parse(localStorage.getItem("allTodos")) || newTodos;
   const remainingTodos = document.querySelector(".remain");
 
   const todosLeft = allTodos.filter((todo) => {
@@ -107,29 +120,34 @@ function deleteSelectedTodo(index) {
 
   localStorage.setItem("allTodos", JSON.stringify(newTodos));
 
-  newTodoList();
   remainingTodos();
+  newTodoList()
 }
 
 // ! filtering todo list
 
-const filterBtn = document.querySelectorAll(".filter");
-
 filterBtn.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtn.forEach(btn => btn.classList.remove('active'))
-    btn.classList.add('active')
-
-    filterTodos(btn)
-  })
+  btn.addEventListener('click', () => { activeFilter(btn) })
 })
 
-function filterTodos(btn) {
+function activeFilter(btn) {
+  filterBtn.forEach(allBtn => allBtn.classList.remove('active'))
+  btn.classList.add('active')
 
+  filterTodos(btn)
+}
+
+
+function filterTodos(btn) {
   const allTodos = JSON.parse(localStorage.getItem("allTodos"));
+  const btnText = btn.innerText
+
+  let emptyTodos;
 
   filteredTodos = allTodos.filter((todo) => {
-    switch (btn.innerText) {
+
+
+    switch (btnText) {
       case "All":
         return todo;
 
@@ -142,12 +160,23 @@ function filterTodos(btn) {
       default:
         return todo;
     }
-  });
+  })
+
+  if (btnText == "All" && filteredTodos.length < 1) {
+    emptyTodos = "No Todos to display!!"
+  }
+  else if (btnText == "Active" && filteredTodos.length < 1) {
+    emptyTodos = "No Active Todos to display!!"
+  }
+  else if (btnText == "Completed" && filteredTodos.length < 1) {
+    emptyTodos = "You have no Completed Todos!!"
+  }
 
   newTodos = filteredTodos;
-  newTodoList();
+  newTodoList(emptyTodos);
   remainingTodos();
 }
+
 
 // ! clear all todos
 
@@ -169,18 +198,18 @@ function clearCompletedTodos() {
 
 // ! selecting completed todos
 
-todoList.addEventListener("click", completedTodos);
+todoList.addEventListener("click", completedTodos)
 
 function completedTodos(e) {
-  e.stopPropagation();
+
+  if (e.target.matches('img') || (newTodos.length === 0)) return;
 
   const listItem = e.target.closest("li");
   const checkBox = listItem.firstElementChild.childNodes[1];
   const id = Number(checkBox.id);
 
-  newTodos.forEach((todo) => {
-    if (id == todo.id) {
-      todo.completed ? (checkBox.checked = true) : (checkBox.checked = false);
+  newTodos.forEach((todo, index) => {
+    if (id == index) {
       todo.completed = !todo.completed;
     }
   });
@@ -192,3 +221,4 @@ function completedTodos(e) {
 
 newTodoList();
 remainingTodos();
+
