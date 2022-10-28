@@ -173,7 +173,7 @@ body {
   color: var(--active);
 }
 
-.completedTodo {
+.completed-todos {
   text-decoration: line-through;
   color: var(--off);
 }
@@ -186,6 +186,10 @@ body {
 }
 .checkbox:checked + .check img {
   opacity: 1;
+}
+
+.active {
+  color: var(--active);
 }
 
 :root {

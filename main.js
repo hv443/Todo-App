@@ -24,13 +24,14 @@ themeSwitch.addEventListener("click", (e) => {
 
 // ! rendering todos list
 
+let newTodos = [];
+let filteredTodos = [];
+
 const form = document.querySelector(".todos__form");
 const todoList = document.querySelector(".todos__list");
 
-let newTodos = [];
 
-const savedTodos = JSON.parse(localStorage.getItem("savedTodos"));
-savedTodos.length > 0 ? (newTodos = savedTodos) : newTodos;
+newTodos = JSON.parse(localStorage.getItem("allTodos")) || [];
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -46,11 +47,11 @@ form.addEventListener("submit", (e) => {
     });
   }
 
-  localStorage.setItem("savedTodos", JSON.stringify(newTodos));
-  form.reset();
+  localStorage.setItem("allTodos", JSON.stringify(newTodos));
 
   newTodoList();
   remainingTodos();
+  form.reset();
 });
 
 // ! rendering new todos list
@@ -58,20 +59,17 @@ form.addEventListener("submit", (e) => {
 function newTodoList() {
   let htmlElement = "";
 
-  newTodos = JSON.parse(localStorage.getItem("savedTodos")) || [];
-
   newTodos.forEach((todo, index) => {
     htmlElement += ` 
-  <li class="todos__list-item item">
+    <li class="todos__list-item item">
       <div class="item__check">
-        <input type="checkbox" id="${todo.id}" class=${
-      todo.completed && "checkbox"
-    } />
+        <input type="checkbox" id="${todo.id}" ${todo.completed && "checked"
+      } class=${todo.completed ? "checkbox" : ""} />
         <div class="check">
           <img src="./images/icon-check.svg" alt="check svg" />
         </div>
       </div>
-      <span  class="item__content ${todo.completed && "completedTodo"}">
+      <span  class="item__content ${todo.completed ? "completed-todos" : ""}">
         ${todo.task}
       </span>
       <div class="item__delete">
@@ -81,10 +79,9 @@ function newTodoList() {
           src="./images/icon-cross.svg"
           alt="cancel img" />
       </div>
-  </li>`;
-
-    todoList.innerHTML = htmlElement;
+    </li>`;
   });
+  todoList.innerHTML = htmlElement;
 }
 
 //  adding functionality
@@ -92,15 +89,15 @@ function newTodoList() {
 // ! checking how many todos left
 
 function remainingTodos() {
+  const allTodos = JSON.parse(localStorage.getItem("allTodos"));
   const remainingTodos = document.querySelector(".remain");
 
-  const todosLeft = newTodos.filter((todo) => {
+  const todosLeft = allTodos.filter((todo) => {
     return todo.completed == false;
   });
 
-  remainingTodos.innerText = `${todosLeft.length} ${
-    todosLeft.length === 1 ? "item" : "items"
-  } Left`;
+  remainingTodos.innerText = `${todosLeft.length} ${todosLeft.length === 1 ? "item" : "items"
+    } Left`;
 }
 
 // ! deleting single todo
@@ -108,8 +105,8 @@ function remainingTodos() {
 function deleteSelectedTodo(index) {
   newTodos.splice(index, 1);
 
-  const o = localStorage.setItem("savedTodos", JSON.stringify(newTodos));
-  console.log(o);
+  localStorage.setItem("allTodos", JSON.stringify(newTodos));
+
   newTodoList();
   remainingTodos();
 }
@@ -118,15 +115,21 @@ function deleteSelectedTodo(index) {
 
 const filterBtn = document.querySelectorAll(".filter");
 
-filterBtn.forEach((btn) => {
-  btn.addEventListener("click", filterTodos);
-});
+filterBtn.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtn.forEach(btn => btn.classList.remove('active'))
+    btn.classList.add('active')
 
-function filterTodos(e) {
-  const storedTodos = JSON.parse(localStorage.getItem("savedTodos"));
+    filterTodos(btn)
+  })
+})
 
-  const filteredTodos = storedTodos.filter((todo) => {
-    switch (e.target.innerText) {
+function filterTodos(btn) {
+
+  const allTodos = JSON.parse(localStorage.getItem("allTodos"));
+
+  filteredTodos = allTodos.filter((todo) => {
+    switch (btn.innerText) {
       case "All":
         return todo;
 
@@ -152,13 +155,13 @@ const clearCompletedTodosBtn = document.querySelector(".clear");
 clearCompletedTodosBtn.addEventListener("click", clearCompletedTodos);
 
 function clearCompletedTodos() {
-  const storedTodos = JSON.parse(localStorage.getItem("savedTodos"));
+  const allTodos = JSON.parse(localStorage.getItem("allTodos"));
 
-  newTodos = storedTodos.filter((todo) => {
+  newTodos = allTodos.filter((todo) => {
     return todo.completed == false;
   });
 
-  localStorage.setItem("savedTodos", JSON.stringify(newTodos));
+  localStorage.setItem("allTodos", JSON.stringify(newTodos));
 
   newTodoList();
   remainingTodos();
@@ -182,7 +185,7 @@ function completedTodos(e) {
     }
   });
 
-  localStorage.setItem("savedTodos", JSON.stringify(newTodos));
+  localStorage.setItem("allTodos", JSON.stringify(newTodos));
   remainingTodos();
   newTodoList();
 }
