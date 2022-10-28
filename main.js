@@ -27,10 +27,14 @@ themeSwitch.addEventListener("click", (e) => {
 const form = document.querySelector(".todos__form");
 const todoList = document.querySelector(".todos__list");
 
-let newTodos = [];
+// const savedTodos = JSON.parse(localStorage.getItem("savedTodos"));
+// savedTodos.length > 0 ? (newTodos = savedTodos) : newTodos;
 
-const savedTodos = JSON.parse(localStorage.getItem("savedTodos"));
-savedTodos.length > 0 ? (newTodos = savedTodos) : newTodos;
+// The above code won't good prectice for new comer for your website
+// cuz is expecting "savedTods" to be present in the localStorage
+// but new user won't have savedTodos initially to tackle this added below code
+
+let newTodos = JSON.parse(localStorage.getItem("savedTodos")) || [];
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -82,9 +86,10 @@ function newTodoList() {
           alt="cancel img" />
       </div>
   </li>`;
-
-    todoList.innerHTML = htmlElement;
   });
+
+  // fixes the last element that deleted from todos but still render
+  todoList.innerHTML = htmlElement;
 }
 
 //  adding functionality
@@ -109,7 +114,6 @@ function deleteSelectedTodo(index) {
   newTodos.splice(index, 1);
 
   const o = localStorage.setItem("savedTodos", JSON.stringify(newTodos));
-  console.log(o);
   newTodoList();
   remainingTodos();
 }
@@ -185,7 +189,10 @@ function completedTodos(e) {
   localStorage.setItem("savedTodos", JSON.stringify(newTodos));
   remainingTodos();
   newTodoList();
+  console.log(checkBox.checked);
 }
 
 newTodoList();
 remainingTodos();
+
+// document.querySelector('[type="checkbox"]').addEventListener("click", e => console.log(e.target))
