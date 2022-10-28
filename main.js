@@ -64,13 +64,17 @@ function newTodoList() {
 
   newTodos = JSON.parse(localStorage.getItem("savedTodos")) || [];
 
+  // ${ todo.completed && "checkbox"} won't bee good practice
+  // cuz what if "todo.completed" is "false", it will print "false" in class
+  // to do this better we use conditional rendering
+
   newTodos.forEach((todo, index) => {
     htmlElement += ` 
   <li class="todos__list-item item">
-      <div class="item__check">
+      <div class="item__check">   
         <input type="checkbox" id="${todo.id}" class=${
-      todo.completed && "checkbox"
-    } />
+      todo.completed ? "checkbox" : null
+    } ${todo.completed ? "checked" : null}/>
         <div class="check">
           <img src="./images/icon-check.svg" alt="check svg" />
         </div>
