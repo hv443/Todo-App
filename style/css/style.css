@@ -188,6 +188,11 @@ body {
   opacity: 1;
 }
 
+i {
+  margin-right: 0.5em;
+  font-size: 1.5em;
+}
+
 .active {
   color: var(--active);
 }

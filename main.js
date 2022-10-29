@@ -80,7 +80,6 @@ function newTodoList(todo, index) {
        </button>
       </div>
     </li>`;
-
   todoList.innerHTML += htmlElement;
 }
 
@@ -130,6 +129,8 @@ function emptyMsg(filterInput) {
       : "You have no Completed Todos !";
 
   todoList.innerHTML = ` <li class="todos__list-item item">
+
+        <i class="fa-solid fa-circle-exclamation"></i>
           <span  class="item__content">
           ${emptyMsg}
             </span> 
@@ -215,6 +216,11 @@ function completedTodos(e) {
   activeTodosCount();
   displayTodoList();
 }
+
+// ! sorting Array
+Sortable.create(todoList, { animation: 150 }, console.log(newTodos));
+
+///////////
 
 displayTodoList();
 activeTodosCount();
