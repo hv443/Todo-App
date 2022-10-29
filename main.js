@@ -43,7 +43,8 @@ form.addEventListener("submit", (e) => {
   if (!inputValue.trim()) {
     console.log("enter something");
   } else {
-    newTodos.unshift({
+    newTodos.push({
+      id: newTodos.length,
       task: inputValue,
       completed: false,
     });
@@ -61,7 +62,7 @@ function newTodoList(todo, index) {
   let htmlElement = ` 
     <li class="todos__list-item item">
       <div class="item__check">
-        <input type="checkbox" id="${index}" ${
+        <input type="checkbox" id="${todo.id}" ${
     todo.completed && "checked"
   } class=${todo.completed ? "checkbox" : ""} />
         <div class="check">
