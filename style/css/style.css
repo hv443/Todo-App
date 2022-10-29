@@ -38,7 +38,7 @@ body {
   width: 100vw;
   min-height: 100vh;
   padding: 2.4em 1.2em;
-  max-width: 640px;
+  max-width: 540px;
 }
 
 .header {
@@ -129,7 +129,10 @@ body {
 }
 .item__delete {
   margin-left: auto;
-  cursor: pointer;
+}
+.item__delete svg:hover path, .item__delete svg:active path {
+  transition: 0.3s;
+  fill: red;
 }
 
 .manage-todos {

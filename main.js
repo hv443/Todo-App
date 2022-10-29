@@ -30,21 +30,20 @@ let filteredTodos = [];
 const form = document.querySelector(".todos__form");
 const todoList = document.querySelector(".todos__list");
 const filterBtn = document.querySelectorAll(".filter");
-let activeFilterBtn = "All"
-
-
+let activeFilterBtn = "All";
 
 newTodos = JSON.parse(localStorage.getItem("allTodos")) || [];
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const inputValue = document.querySelector('.todos__form-input').value
+  const inputValue = document.querySelector(".todos__form-input").value;
+  activeFilterBtn = "All";
 
   if (!inputValue.trim()) {
     console.log("enter something");
   } else {
-    newTodos.push({
+    newTodos.unshift({
       task: inputValue,
       completed: false,
     });
@@ -59,12 +58,12 @@ form.addEventListener("submit", (e) => {
 // ! rendering new todos list
 
 function newTodoList(todo, index) {
-
   let htmlElement = ` 
     <li class="todos__list-item item">
       <div class="item__check">
-        <input type="checkbox" id="${index}" ${todo.completed && "checked"
-    } class=${todo.completed ? "checkbox" : ""} />
+        <input type="checkbox" id="${index}" ${
+    todo.completed && "checked"
+  } class=${todo.completed ? "checkbox" : ""} />
         <div class="check">
           <img src="./images/icon-check.svg" alt="check svg" />
         </div>
@@ -73,14 +72,13 @@ function newTodoList(todo, index) {
         ${todo.task}
       </span>
       <div class="item__delete">
-        <img
-          onclick="deleteSelectedTodo(${index})"
-          class="delete-todo"
-          src="./images/icon-cross.svg"
-          alt="cancel img" />
+      <button onclick="deleteSelectedTodo(${index})"> 
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd"
+       d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/>
+       </svg>
+       </button>
       </div>
     </li>`;
-
 
   todoList.innerHTML += htmlElement;
 }
@@ -94,47 +92,47 @@ function removeAllTodos(list) {
 }
 
 function displayTodoList(filterInput = activeFilterBtn) {
-
   const allTodos = JSON.parse(localStorage.getItem("allTodos")) || newTodos;
-  removeAllTodos(todoList)
+  removeAllTodos(todoList);
 
   filteredTodos = allTodos.filter((todo) => {
     switch (filterInput) {
       case "All":
-        return todo
+        return todo;
 
       case "Completed":
-        return todo.completed
+        return todo.completed;
 
       case "Active":
-        return !todo.completed
+        return !todo.completed;
 
       default:
-        return todo
+        return todo;
     }
-  })
+  });
 
   filteredTodos.forEach((todo, index) => {
-    newTodoList(todo, index)
-  })
+    newTodoList(todo, index);
+  });
 
-  filteredTodos.length === 0 && emptyMsg(filterInput)
+  filteredTodos.length === 0 && emptyMsg(filterInput);
 }
 
 // ! when filtered array is empty
 
 function emptyMsg(filterInput) {
-
-  let emptyMsg = filterInput == "All"
-    ? "No Todos to display !" : filterInput == "Active"
-      ? 'No Active Todos to display !' : 'You have no Completed Todos !'
-
+  let emptyMsg =
+    filterInput == "All"
+      ? "No Todos to display !"
+      : filterInput == "Active"
+      ? "No Active Todos to display !"
+      : "You have no Completed Todos !";
 
   todoList.innerHTML = ` <li class="todos__list-item item">
           <span  class="item__content">
           ${emptyMsg}
             </span> 
-                    </li>`
+                    </li>`;
 }
 
 //  adding functionality
@@ -149,8 +147,9 @@ function activeTodosCount() {
     return todo.completed == false;
   });
 
-  activeTodosCount.innerText = `${todosLeft.length} ${todosLeft.length === 1 ? "item" : "items"
-    } Left`;
+  activeTodosCount.innerText = `${todosLeft.length} ${
+    todosLeft.length === 1 ? "item" : "items"
+  } Left`;
 }
 
 // ! deleting single todo
@@ -160,28 +159,28 @@ function deleteSelectedTodo(index) {
   localStorage.setItem("allTodos", JSON.stringify(newTodos));
 
   activeTodosCount();
-  displayTodoList()
+  displayTodoList();
 }
 
 // ! filtering todo list
 
-filterBtn.forEach(btn => {
-  btn.addEventListener('click', () => {
-    activeFilterBtn = btn.innerText
-    displayTodoList(activeFilterBtn)
+filterBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    activeFilterBtn = btn.innerText;
+    displayTodoList(activeFilterBtn);
 
-    filterBtn.forEach(btn => {
-      btn.classList.remove('active')
-    })
-
-    btn.classList.add('active')
-  })
-})
-
+    filterBtn.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    btn.classList.add("active");
+    // btn.innerText == activeFilterBtn &&
+  });
+});
 
 // ! clear all todos
 
 const clearCompletedTodosBtn = document.querySelector(".clear");
+
 clearCompletedTodosBtn.addEventListener("click", clearCompletedTodos);
 
 function clearCompletedTodos() {
@@ -199,21 +198,17 @@ function clearCompletedTodos() {
 
 // ! selecting completed todos
 
-todoList.addEventListener("click", completedTodos)
+todoList.addEventListener("click", completedTodos);
 
 function completedTodos(e) {
-
-  if (e.target.matches('img') || filteredTodos.length == 0) return;
+  if (e.target.matches("button,svg , path") || filteredTodos.length == 0)
+    return;
 
   const listItem = e.target.closest("li");
   const checkBox = listItem.firstElementChild.childNodes[1];
   const id = Number(checkBox.id);
 
-  newTodos.forEach((todo, index) => {
-    if (id == index) {
-      todo.completed = !todo.completed;
-    }
-  });
+  newTodos[id].completed = !newTodos[id].completed;
 
   localStorage.setItem("allTodos", JSON.stringify(newTodos));
   activeTodosCount();
@@ -222,4 +217,3 @@ function completedTodos(e) {
 
 displayTodoList();
 activeTodosCount();
-
