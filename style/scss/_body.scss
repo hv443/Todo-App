@@ -214,23 +214,20 @@ body {
   color: var(--off);
 }
 
-.pop-up {
+.pop-up-msg {
   position: fixed;
   left: 0;
   width: 100%;
   text-align: center;
   animation: popAnim 1.5s 1 linear;
   color: var(--active);
-  display: none;
   opacity: 0;
-  bottom: 5%;
+  bottom: 10%;
 }
 
 //  ! for javascript
 
-.display{
-    display: block;
-}
+
 
 .completed-todos {
   text-decoration: line-through;

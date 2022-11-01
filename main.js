@@ -34,14 +34,16 @@ let activeFilterBtn = "All";
 
 newTodos = JSON.parse(localStorage.getItem("allTodos")) || [];
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", addTodos)
+
+function addTodos(e) {
   e.preventDefault();
 
   const inputValue = document.querySelector(".todos__form-input").value;
   activeFilterBtn = "All";
 
   if (!inputValue.trim()) {
-    popUpFunction('Todo cannot be Empty !!')
+    popUpFunction('Todo cannot be Empty !!', 'blue')
   } else {
     newTodos.push({
       id: newTodos.length,
@@ -62,7 +64,7 @@ form.addEventListener("submit", (e) => {
 
     form.reset();
   }
-});
+};
 
 // ! rendering new todos list
 
@@ -247,13 +249,14 @@ function popUpFunction(popUpText, color) {
 
   const popUpMsg = document.querySelector(".pop-up")
 
-  popUpMsg.innerText = popUpText
-  popUpMsg.classList.add('display')
-  popUpMsg.style.color = color
+  popUpMsg.classList.add('pop-up-msg')
 
   setTimeout(() => {
-    popUpMsg.classList.remove('display')
+    popUpMsg.classList.remove('pop-up-msg')
   }, 1500);
+
+  popUpMsg.innerText = popUpText
+  popUpMsg.style.color = color
 }
 
 
