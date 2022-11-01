@@ -53,7 +53,7 @@ form.addEventListener("submit", (e) => {
     localStorage.setItem("allTodos", JSON.stringify(newTodos));
     displayTodoList();
     activeTodosCount();
-    popUpFunction('Todo Added', 'sky')
+    popUpFunction('Todo Added', 'green')
 
     filterBtn.forEach((btn) => {
       btn.classList.remove("active");
@@ -202,6 +202,10 @@ clearCompletedTodosBtn.addEventListener("click", clearCompletedTodos);
 function clearCompletedTodos() {
   const allTodos = JSON.parse(localStorage.getItem("allTodos"));
 
+  deletedTodos = allTodos.filter((todo) => {
+    return !todo.completed == false;
+  });
+
   newTodos = allTodos.filter((todo) => {
     return todo.completed == false;
   });
@@ -210,6 +214,12 @@ function clearCompletedTodos() {
 
   displayTodoList();
   activeTodosCount();
+
+  deletedTodos.length == 0 ?
+    popUpFunction('Nothing to Clear', 'blue')
+    :
+    popUpFunction('Cleared All Completed Todos', 'red')
+
 }
 
 // ! selecting completed todos
@@ -243,7 +253,7 @@ function popUpFunction(popUpText, color) {
 
   setTimeout(() => {
     popUpMsg.classList.remove('display')
-  }, 1000);
+  }, 1500);
 }
 
 
