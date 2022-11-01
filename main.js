@@ -41,34 +41,40 @@ form.addEventListener("submit", (e) => {
   activeFilterBtn = "All";
 
   if (!inputValue.trim()) {
-    console.log("enter something");
+    popUpFunction('Todo cannot be Empty !!')
   } else {
     newTodos.push({
       id: newTodos.length,
       task: inputValue,
       completed: false,
     });
-  }
 
-  localStorage.setItem("allTodos", JSON.stringify(newTodos));
-  displayTodoList();
-  activeTodosCount();
-  form.reset();
+
+    localStorage.setItem("allTodos", JSON.stringify(newTodos));
+    displayTodoList();
+    activeTodosCount();
+    popUpFunction('Todo Added', 'sky')
+
+    filterBtn.forEach((btn) => {
+      btn.classList.remove("active");
+      filterBtn[0].classList.add("active")
+    })
+
+    form.reset();
+  }
 });
 
 // ! rendering new todos list
 
 function newTodoList(todo, index) {
-  let htmlElement = ` 
-    <li class="todos__list-item item">
+  let htmlElement = `<li class="todos__list-item item" id="${index}">
       <div class="item__check">
-        <input type="checkbox" id="${index}" ${todo.completed && "checked"
-    } class=${todo.completed ? "checkbox" : ""} />
+        <input type="checkbox" class="checkbox" ${todo.completed ? "checked" : null}/>
         <div class="check">
           <img src="./images/icon-check.svg" alt="check svg" />
         </div>
       </div>
-      <span  class="item__content ${todo.completed ? "completed-todos" : ""}">
+      <span class="item__content ${todo.completed ? "completed-todos" : null}">
         ${todo.task}
       </span>
       <div class="item__delete">
@@ -168,20 +174,21 @@ function deleteSelectedTodo(index) {
 
   activeTodosCount();
   displayTodoList();
+  popUpFunction('Todo deleted', 'red')
 }
 
 // ! filtering todo list
 
 filterBtn.forEach((btn) => {
+  filterBtn[0].classList.add("active");
+
   btn.addEventListener("click", () => {
     activeFilterBtn = btn.innerText;
     filterBtn.forEach((btn) => {
       btn.classList.remove("active");
     });
     btn.classList.add("active");
-
     displayTodoList(activeFilterBtn);
-
     // btn.innerText == activeFilterBtn &&
   });
 });
@@ -210,24 +217,45 @@ function clearCompletedTodos() {
 todoList.addEventListener("click", completedTodos);
 
 function completedTodos(e) {
-  if (e.target.matches("button,svg , path") || filteredTodos.length == 0)
+
+  if (e.target.matches("button,svg,path") || filteredTodos.length == 0)
     return;
 
   const listItem = e.target.closest("li");
-  const checkBox = listItem.firstElementChild.childNodes[1];
-  const id = Number(checkBox.id);
+  const index = Number(listItem.id);
 
-  newTodos[id].completed = !newTodos[id].completed;
+  newTodos[index].completed = !newTodos[index].completed;
 
   localStorage.setItem("allTodos", JSON.stringify(newTodos));
   activeTodosCount();
   displayTodoList();
 }
 
-// ! sorting Array
-Sortable.create(todoList, { animation: 150 });
+//  ! pop-up message 
 
-console.log(todoList);
+function popUpFunction(popUpText, color) {
+
+  const popUpMsg = document.querySelector(".pop-up")
+
+  popUpMsg.innerText = popUpText
+  popUpMsg.classList.add('display')
+  popUpMsg.style.color = color
+
+  setTimeout(() => {
+    popUpMsg.classList.remove('display')
+  }, 1000);
+}
+
+
+// ! sorting Array
+Sortable.create(todoList, {
+  animation: 300,
+  onSort: () => {
+    console.log('soted')
+  },
+});
+
+
 
 ///////////
 

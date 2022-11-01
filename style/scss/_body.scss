@@ -115,9 +115,11 @@ body {
     aspect-ratio: 1/1;
 
     &:hover {
-      background: linear-gradient(to bottom,
-          var(--gradient1),
-          var(--gradient2));
+      background: linear-gradient(
+        to bottom,
+        var(--gradient1),
+        var(--gradient2)
+      );
       border: 1px solid transparent;
     }
 
@@ -148,16 +150,14 @@ body {
     margin-left: auto;
 
     svg {
-
       &:hover,
       &:active {
         path {
-          transition: .3s;
+          transition: 0.3s;
           fill: red;
         }
       }
     }
-
   }
 }
 
@@ -207,15 +207,30 @@ body {
   }
 }
 
-.footer{
-text-align: center;
-margin-top: 3em;
-font-size: small;
-color: var(--off);
+.footer {
+  text-align: center;
+  margin-top: 3em;
+  font-size: small;
+  color: var(--off);
 }
 
+.pop-up {
+  position: sticky;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  animation: popAnim 1s 1 linear;
+  color: var(--active);
+  display: none;
+  opacity: 0;
+  bottom: 5%;
+}
 
 //  ! for javascript
+
+.display{
+    display: block;
+}
 
 .completed-todos {
   text-decoration: line-through;
@@ -225,7 +240,7 @@ color: var(--off);
 .checkbox {
   opacity: 0;
 
-  &:checked+.check {
+  &:checked + .check {
     background: linear-gradient(to bottom, var(--gradient1), var(--gradient2));
 
     img {
@@ -235,7 +250,7 @@ color: var(--off);
 }
 
 i {
-  margin-right: .5em;
+  margin-right: 0.5em;
   font-size: 1.5em;
 }
 
@@ -243,23 +258,21 @@ i {
   color: var(--active);
 }
 
+// ! for Animation
 
-// ! for Animation 
-
-// .todos__list {
-//   overflow: hidden;
-// }
-
-// .item:first-child {
-//   animation: anime .5s linear 1;
-// }
-
-// @keyframes anime {
-//   0% {
-//     transform: translateX(100%);
-//   }
-
-//   100% {
-//     transform: translateX(0px);
-//   }
-// }
+@keyframes popAnim {
+  0% {
+    transform: translateY(-0);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-15px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(-45px);
+    opacity: 0;
+  }
+}

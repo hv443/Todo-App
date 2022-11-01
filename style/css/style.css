@@ -180,6 +180,22 @@ body {
   color: var(--off);
 }
 
+.pop-up {
+  position: sticky;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  animation: popAnim 1s 1 linear;
+  color: var(--active);
+  display: none;
+  opacity: 0;
+  bottom: 5%;
+}
+
+.display {
+  display: block;
+}
+
 .completed-todos {
   text-decoration: line-through;
   color: var(--off);
@@ -204,6 +220,22 @@ i {
   color: var(--active);
 }
 
+@keyframes popAnim {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-15px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(-45px);
+    opacity: 0;
+  }
+}
 :root {
   --active: hsl(220, 98%, 61%);
   --gradient1: hsl(192, 100%, 67%);
