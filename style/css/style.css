@@ -173,6 +173,13 @@ body {
   color: var(--active);
 }
 
+.footer {
+  text-align: center;
+  margin-top: 3em;
+  font-size: small;
+  color: var(--off);
+}
+
 .completed-todos {
   text-decoration: line-through;
   color: var(--off);
@@ -236,4 +243,4 @@ i {
   .todos__filter-mobile {
     display: none;
   }
-}/*# sourceMappingURL=style.css.map */
+}

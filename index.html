@@ -1,69 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
 
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./images/favicon-32x32.png" />
-    <link rel="stylesheet" href="./style/css/style.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- displays site properly based on user's device -->
 
-    <title>Todo app</title>
-  </head>
-  <body>
-    <div class="content-wrapper">
-      <header class="header">
-        <div class="header__logo">
-          <h1>TODO</h1>
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <link rel="stylesheet" href="./style/css/style.css" />
+
+  <title>Todo app</title>
+</head>
+
+<body>
+  <div class="content-wrapper">
+    <header class="header">
+      <div class="header__logo">
+        <h1>TODO</h1>
+      </div>
+
+      <div class="header__theme-switch">
+        <img class="theme-switch" src="./images/icon-sun.svg" alt="" />
+      </div>
+    </header>
+
+    <div class="todos">
+      <form class="todos__form">
+        <input class="todos__form-input" type="text" placeholder="Create a new todo..." />
+      </form>
+
+      <ul class="todos__list"></ul>
+
+      <div class="manage-todos">
+        <div class="manage-todos__remain">
+          <p class="remain"></p>
         </div>
 
-        <div class="header__theme-switch">
-          <img class="theme-switch" src="./images/icon-sun.svg" alt="" />
-        </div>
-      </header>
-
-      <div class="todos">
-        <form class="todos__form">
-          <input
-            class="todos__form-input"
-            type="text"
-            placeholder="Create a new todo..." />
-        </form>
-
-        <ul class="todos__list"></ul>
-
-        <div class="manage-todos">
-          <div class="manage-todos__remain">
-            <p class="remain"></p>
-          </div>
-
-          <ul class="manage-todos__filter-desktop">
-            <li class="filter"><button>All</button></li>
-            <li class="filter"><button>Active</button></li>
-            <li class="filter"><button>Completed</button></li>
-          </ul>
-
-          <button class="manage-todos__clear">
-            <p class="clear">Clear Completed</p>
-          </button>
-        </div>
-
-        <ul class="todos__filter-mobile">
+        <ul class="manage-todos__filter-desktop">
           <li class="filter"><button>All</button></li>
           <li class="filter"><button>Active</button></li>
           <li class="filter"><button>Completed</button></li>
         </ul>
+
+        <button class="manage-todos__clear">
+          <p class="clear">Clear Completed</p>
+        </button>
       </div>
+
+      <ul class="todos__filter-mobile">
+        <li class="filter"><button>All</button></li>
+        <li class="filter"><button>Active</button></li>
+        <li class="filter"><button>Completed</button></li>
+      </ul>
     </div>
-  </body>
 
-  <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
-  <script src="https://kit.fontawesome.com/22ee28c8bc.js" crossorigin="anonymous"></script>
-  <script src="main.js"></script>
+    <div class="todos__footer footer">
+      <p>Drag and drop to reorder list</p>
+    </div>
+  </div>
+</body>
+
+<!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+<script src="https://kit.fontawesome.com/22ee28c8bc.js" crossorigin="anonymous"></script>
+<script src="main.js"></script>
+
 </html>

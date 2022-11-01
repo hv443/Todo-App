@@ -62,9 +62,8 @@ function newTodoList(todo, index) {
   let htmlElement = ` 
     <li class="todos__list-item item">
       <div class="item__check">
-        <input type="checkbox" id="${todo.id}" ${
-    todo.completed && "checked"
-  } class=${todo.completed ? "checkbox" : ""} />
+        <input type="checkbox" id="${index}" ${todo.completed && "checked"
+    } class=${todo.completed ? "checkbox" : ""} />
         <div class="check">
           <img src="./images/icon-check.svg" alt="check svg" />
         </div>
@@ -95,6 +94,18 @@ function displayTodoList(filterInput = activeFilterBtn) {
   const allTodos = JSON.parse(localStorage.getItem("allTodos")) || newTodos;
   removeAllTodos(todoList);
 
+  allTodos.forEach((todo, index) => {
+    if (filterInput == "All") {
+      newTodoList(todo, index);
+    }
+    else if (filterInput == "Active" && !todo.completed) {
+      newTodoList(todo, index);
+    }
+    else if (filterInput == "Completed" && todo.completed) {
+      newTodoList(todo, index);
+    }
+  })
+
   filteredTodos = allTodos.filter((todo) => {
     switch (filterInput) {
       case "All":
@@ -111,13 +122,9 @@ function displayTodoList(filterInput = activeFilterBtn) {
     }
   });
 
-  filteredTodos.forEach((todo, index) => {
-    newTodoList(todo, index);
-  });
-
   filteredTodos.length === 0 && emptyMsg(filterInput);
-}
 
+}
 // ! when filtered array is empty
 
 function emptyMsg(filterInput) {
@@ -125,8 +132,8 @@ function emptyMsg(filterInput) {
     filterInput == "All"
       ? "No Todos to display !"
       : filterInput == "Active"
-      ? "No Active Todos to display !"
-      : "You have no Completed Todos !";
+        ? "No Active Todos to display !"
+        : "You have no Completed Todos !";
 
   todoList.innerHTML = ` <li class="todos__list-item item">
 
@@ -149,9 +156,8 @@ function activeTodosCount() {
     return todo.completed == false;
   });
 
-  activeTodosCount.innerText = `${todosLeft.length} ${
-    todosLeft.length === 1 ? "item" : "items"
-  } Left`;
+  activeTodosCount.innerText = `${todosLeft.length} ${todosLeft.length === 1 ? "item" : "items"
+    } Left`;
 }
 
 // ! deleting single todo
@@ -169,12 +175,13 @@ function deleteSelectedTodo(index) {
 filterBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
     activeFilterBtn = btn.innerText;
-    displayTodoList(activeFilterBtn);
-
     filterBtn.forEach((btn) => {
       btn.classList.remove("active");
     });
     btn.classList.add("active");
+
+    displayTodoList(activeFilterBtn);
+
     // btn.innerText == activeFilterBtn &&
   });
 });
@@ -218,7 +225,9 @@ function completedTodos(e) {
 }
 
 // ! sorting Array
-Sortable.create(todoList, { animation: 150 }, console.log(newTodos));
+Sortable.create(todoList, { animation: 150 });
+
+console.log(todoList);
 
 ///////////
 
