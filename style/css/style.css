@@ -176,8 +176,8 @@ body {
 .footer {
   text-align: center;
   margin-top: 3em;
-  font-size: small;
-  color: var(--off);
+  font-size: medium;
+  color: var(--neutral);
 }
 
 .pop-up-msg {
