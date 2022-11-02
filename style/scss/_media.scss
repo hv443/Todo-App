@@ -1,4 +1,8 @@
 @media (min-width: 678px) {
+  .dark {
+    background-image: url("../../images/bg-desktop-dark.jpg");
+  }
+
   body {
     background-image: url("../../images/bg-desktop-light.jpg");
   }

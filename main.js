@@ -5,10 +5,11 @@ const colorMode = window.matchMedia("(prefers-color-scheme : dark");
 
 //  ! checking device color-mode and conditionally inserting color-switch icon
 
-const switchLogo = colorMode.matches ? "sun" : "moon";
 
-colorMode.matches ? body.classList.add("dark") : body.classList.remove("dark");
-themeSwitch.src = `http://127.0.0.1:5500/images/icon-${switchLogo}.svg`;
+colorMode.matches ? (body.classList.add("dark"),
+  themeSwitch.src = `http://127.0.0.1:5500/images/icon-sun.svg`)
+  : (body.classList.remove("dark"),
+    themeSwitch.src = `http://127.0.0.1:5500/images/icon-moon.svg`);
 
 // ! them switcher
 
