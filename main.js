@@ -249,11 +249,13 @@ function completedTodos(e) {
 function popUpFunction(popUpText, color) {
 
   const popUpMsg = document.querySelector(".pop-up")
-
+  
+  popUpMsg.style.display = 'block'
   popUpMsg.classList.add('pop-up-msg')
 
   setTimeout(() => {
     popUpMsg.classList.remove('pop-up-msg')
+    popUpMsg.style.display = 'none'
   }, 1500);
 
   popUpMsg.innerText = popUpText
