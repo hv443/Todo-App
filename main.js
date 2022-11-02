@@ -6,9 +6,11 @@ const colorMode = window.matchMedia("(prefers-color-scheme : dark");
 //  ! checking device color-mode 
 
 colorMode.matches ? (body.classList.add("dark"),
-  themeSwitch.src = `http://127.0.0.1:5500/images/icon-sun.svg`)
+  themeSwitch.src = `./images/icon-sun.svg`)
   : (body.classList.remove("dark"),
-    themeSwitch.src = `http://127.0.0.1:5500/images/icon-moon.svg`);
+    themeSwitch.src = `./images/icon-moon.svg`);
+
+console.log(themeSwitch)
 
 // ! them switcher
 
@@ -16,9 +18,9 @@ themeSwitch.addEventListener("click", (e) => {
   body.classList.toggle("dark");
 
   if (body.classList.contains("dark")) {
-    e.target.src = "http://127.0.0.1:5500/images/icon-sun.svg";
+    e.target.src = "./images/icon-sun.svg";
   } else {
-    e.target.src = "http://127.0.0.1:5500/images/icon-moon.svg";
+    e.target.src = "./images/icon-moon.svg";
   }
 });
 
