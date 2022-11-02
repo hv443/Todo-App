@@ -3,8 +3,7 @@ const body = document.querySelector("body");
 
 const colorMode = window.matchMedia("(prefers-color-scheme : dark");
 
-//  ! checking device color-mode and conditionally inserting color-switch icon
-
+//  ! checking device color-mode 
 
 colorMode.matches ? (body.classList.add("dark"),
   themeSwitch.src = `http://127.0.0.1:5500/images/icon-sun.svg`)
@@ -60,7 +59,7 @@ function addTodos(e) {
 
     filterBtn.forEach((btn) => {
       btn.classList.remove("active");
-      filterBtn[0].classList.add("active")
+      btn.innerText == "All" && btn.classList.add("active");
     })
 
     form.reset();
@@ -183,7 +182,7 @@ function deleteSelectedTodo(index) {
 // ! filtering todo list
 
 filterBtn.forEach((btn) => {
-  filterBtn[0].classList.add("active");
+  btn.innerText == "All" && btn.classList.add("active");
 
   btn.addEventListener("click", () => {
     activeFilterBtn = btn.innerText;
@@ -249,14 +248,14 @@ function completedTodos(e) {
 function popUpFunction(popUpText, color) {
 
   const popUpMsg = document.querySelector(".pop-up")
-  
+
   popUpMsg.style.display = 'block'
   popUpMsg.classList.add('pop-up-msg')
 
   setTimeout(() => {
     popUpMsg.classList.remove('pop-up-msg')
     popUpMsg.style.display = 'none'
-  }, 1500);
+  }, 800);
 
   popUpMsg.innerText = popUpText
   popUpMsg.style.color = color
@@ -273,7 +272,7 @@ Sortable.create(todoList, {
 
 
 
-///////////
+//////////////    
 
 displayTodoList();
 activeTodosCount();

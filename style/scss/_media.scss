@@ -7,6 +7,19 @@
     background-image: url("../../images/bg-desktop-light.jpg");
   }
 
+  .item {
+    &__delete {
+      opacity: 0;
+      transition: 0.3s;
+    }
+
+    &:hover {
+      .item__delete {
+        opacity: 1;
+      }
+    }
+  }
+
   .manage-todos {
     &__filter-desktop {
       display: flex;

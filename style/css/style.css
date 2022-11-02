@@ -34,7 +34,7 @@ body {
   justify-content: center;
   background-image: url("../../images/bg-mobile-light.jpg");
   background-repeat: no-repeat;
-  background-size: 100% 33vh;
+  background-size: 100% 30vh;
   background-color: var(--secondary);
 }
 
@@ -90,7 +90,6 @@ body {
   border-radius: 0.2em;
 }
 .todos__list-item,
-.todos .item__delete,
 .todos .item__check {
   display: flex;
   align-items: center;
@@ -130,9 +129,6 @@ body {
 .item__content {
   flex-grow: 1;
   cursor: pointer;
-}
-.item__delete {
-  margin-left: auto;
 }
 .item__delete svg:hover path, .item__delete svg:active path {
   transition: 0.3s;
@@ -189,7 +185,7 @@ body {
   left: 0;
   width: 100%;
   text-align: center;
-  animation: popAnim 1.5s 1 linear;
+  animation: popAnim 0.8s 1 linear;
   color: var(--active);
   opacity: 0;
   bottom: 10%;
@@ -225,15 +221,15 @@ i {
     opacity: 1;
   }
   25% {
-    transform: translateY(-15px);
+    transform: translateY(-5px);
     opacity: 1;
   }
   50% {
-    transform: translateY(-30px);
+    transform: translateY(-10px);
     opacity: 1;
   }
   100% {
-    transform: translateY(-45px);
+    transform: translateY(-20px);
     opacity: 0;
   }
 }
@@ -263,6 +259,13 @@ i {
   }
   body {
     background-image: url("../../images/bg-desktop-light.jpg");
+  }
+  .item__delete {
+    opacity: 0;
+    transition: 0.3s;
+  }
+  .item:hover .item__delete {
+    opacity: 1;
   }
   .manage-todos__filter-desktop {
     display: flex;
