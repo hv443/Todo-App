@@ -10,8 +10,6 @@ colorMode.matches ? (body.classList.add("dark"),
   : (body.classList.remove("dark"),
     themeSwitch.src = `./images/icon-moon.svg`);
 
-console.log(themeSwitch)
-
 // ! them switcher
 
 themeSwitch.addEventListener("click", (e) => {
@@ -57,7 +55,7 @@ function addTodos(e) {
     localStorage.setItem("allTodos", JSON.stringify(newTodos));
     displayTodoList();
     activeTodosCount();
-    popUpFunction('Todo Added', 'green')
+    popUpFunction('Todo Added', '#60eb5c')
 
     filterBtn.forEach((btn) => {
       btn.classList.remove("active");
@@ -247,20 +245,21 @@ function completedTodos(e) {
 
 //  ! pop-up message 
 
-function popUpFunction(popUpText, color) {
+function popUpFunction(text, color) {
 
-  const popUpMsg = document.querySelector(".pop-up")
+  const popUpDiv = document.querySelector(".pop-up")
 
-  popUpMsg.style.display = 'block'
-  popUpMsg.classList.add('pop-up-msg')
+  const popUpElement = document.createElement('p')
+  popUpElement.innerText = text
+  popUpElement.className = 'pop-up-msg'
+  popUpDiv.style.color = color
+  popUpDiv.appendChild(popUpElement)
 
-  setTimeout(() => {
-    popUpMsg.classList.remove('pop-up-msg')
-    popUpMsg.style.display = 'none'
-  }, 800);
+  console.log(popUpDiv.childNodes.length);
 
-  popUpMsg.innerText = popUpText
-  popUpMsg.style.color = color
+  if (popUpDiv.childNodes.length > 3) {
+    popUpDiv.removeChild(popUpDiv.firstChild);
+  }
 }
 
 
@@ -268,7 +267,7 @@ function popUpFunction(popUpText, color) {
 Sortable.create(todoList, {
   animation: 300,
   onSort: () => {
-    console.log('soted')
+    console.log('sorted')
   },
 });
 

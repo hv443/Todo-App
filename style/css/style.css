@@ -185,8 +185,7 @@ body {
   left: 0;
   width: 100%;
   text-align: center;
-  animation: popAnim 0.8s 1 linear;
-  color: var(--active);
+  animation: popAnim 1s 1 linear;
   opacity: 0;
   bottom: 10%;
 }
