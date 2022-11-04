@@ -253,8 +253,8 @@ function popUpFunction(text, color) {
   popUpElement.innerText = text
   popUpElement.className = 'pop-up-msg'
   popUpElement.style.color = color
-  popUpDiv.appendChild(popUpElement)
 
+  popUpDiv.appendChild(popUpElement)
   document.body.appendChild(popUpElement)
 
   if (popUpDiv.childNodes.length > 3) {
