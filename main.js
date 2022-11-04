@@ -247,15 +247,15 @@ function completedTodos(e) {
 
 function popUpFunction(text, color) {
 
-  const popUpDiv = document.querySelector(".pop-up")
+  const popUpDiv = document.createElement('div')
 
   const popUpElement = document.createElement('p')
   popUpElement.innerText = text
   popUpElement.className = 'pop-up-msg'
-  popUpDiv.style.color = color
+  popUpElement.style.color = color
   popUpDiv.appendChild(popUpElement)
 
-  console.log(popUpDiv.childNodes.length);
+  document.body.appendChild(popUpElement)
 
   if (popUpDiv.childNodes.length > 3) {
     popUpDiv.removeChild(popUpDiv.firstChild);

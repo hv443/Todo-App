@@ -220,15 +220,15 @@ i {
     opacity: 1;
   }
   25% {
-    transform: translateY(-5px);
+    transform: translateY(-13px);
     opacity: 1;
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-26px);
     opacity: 1;
   }
   100% {
-    transform: translateY(-20px);
+    transform: translateY(-40px);
     opacity: 0;
   }
 }
